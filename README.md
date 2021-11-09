@@ -1,2 +1,2 @@
 # op-admin-system
-an admin system use umi
+an admin manage system

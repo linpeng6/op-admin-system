@@ -1,15 +1,9 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { history } from 'umi';
+import { MenuOption } from '@/redux/interface';
 interface IMenu {
-  menu: Array<IMenuItem>;
-}
-
-interface IMenuItem {
-  name: string;
-  key: string;
-  path: string;
-  children?: Array<any>;
+  menu: MenuOption[];
 }
 
 const { SubMenu } = Menu;
@@ -28,30 +22,29 @@ const index: React.FC<IMenu> = (props) => {
   );
 };
 
-const MenuItem = (item: IMenuItem) => {
+const MenuItem = (item: MenuOption) => {
   return (
     <Menu.Item key={item.path}>
-      <span className="menuIcon"></span>
-      <span className="menuName">{item.name}</span>
+      <span className="menu-icon"></span>
+      <span className="menu-name">{item.name}</span>
     </Menu.Item>
   );
 };
 
-const SubMenuItem = (item: IMenuItem) => {
+const SubMenuItem = (item: MenuOption) => {
   return (
     <SubMenu
       key={item.path}
       title={
         <>
-          <span className="menuIcon"></span>
-          <span className="menuName">{item.name}</span>
+          <span className="menu-icon"></span>
+          <span className="menu-name">{item.name}</span>
         </>
       }
     >
-      {item.children &&
-        item.children.map((i) =>
-          i.children && i.children.length ? SubMenuItem(i) : MenuItem(i),
-        )}
+      {item.children?.map((i) =>
+        i.children && i.children.length ? SubMenuItem(i) : MenuItem(i),
+      )}
     </SubMenu>
   );
 };

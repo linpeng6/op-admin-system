@@ -1,27 +1,33 @@
 import actionTypes from '../action/actionTypes';
-
-const initState = {
-  tabMenus: [
-    {
-      path: '/comp/table',
-      name: '表格组件',
-    },
-    {
-      path: '/system/user',
-      name: '用户',
-    },
-  ],
-  selectedKey: '/comp/table',
+import { MenuState, MenuActionType } from '../interface';
+const initState: MenuState = {
+  menuTree: [], //菜单树
+  menuList: [], //菜单平铺结构
+  tabMenus: [],
+  selectedKey: '',
 };
 
-export default (state = initState, action: any) => {
+export default (state = initState, action: MenuActionType) => {
   switch (action.type) {
+    case actionTypes.UPDATE_MENU_LIST:
+      return {
+        ...state,
+        ...action.value,
+      };
     case actionTypes.UPDATE_TAB_MENU:
-      return null;
+      return {
+        ...state,
+        tabMenus: action.value,
+      };
     case actionTypes.UPDATE_SELECT_KEY:
       return {
         ...state,
         selectedKey: action.value,
+      };
+    case actionTypes.UPDATE_ROUTE:
+      return {
+        ...state,
+        ...action.value,
       };
     default:
       return state;

@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { MenuOption, MenuItem, RootState } from '@/redux/interface';
 import { changeSelectKey, changeTabMenus } from '@/redux/action/menu';
 import { history } from 'umi';
-import { HomeOutlined, CloseOutlined } from '@ant-design/icons';
-
+import { HomeOutlined, CloseOutlined, MenuOutlined } from '@ant-design/icons';
+import { Dropdown, Menu } from 'antd';
 const index: React.FC = () => {
   const { menuTree, tabMenus, selectedKey } = useSelector(
     (state: RootState) => state.menu,
@@ -31,12 +31,25 @@ const index: React.FC = () => {
     const newTabMenus = tabMenus.filter((item) => item.path !== path);
     dispatch(changeTabMenus(newTabMenus));
   };
+
   const home = useMemo(() => {
     return menuTree && menuTree[0];
   }, [menuTree]);
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <div>关闭其它标签</div>
+      </Menu.Item>
+      <Menu.Item>
+        <div>关闭所有标签</div>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
-    <div className="tab-menu-layout">
-      <div className="flex height-100 ">
+    <div className="tabs-menu-layout">
+      <div className="tabs-menu-container">
         {home && (
           <div
             onClick={() => {
@@ -49,31 +62,36 @@ const index: React.FC = () => {
             <HomeOutlined className="fs18" />
           </div>
         )}
-        {tabMenus.map((item) => {
-          if (home && item.path === home.path) {
-            return null;
-          }
-          return (
-            <div
-              key={item.name}
-              className={`tabs-item ${
-                selectedKey === item.path ? 'tabs-item-active' : ''
-              }`}
-              onClick={() => {
-                clickTabItem(item);
-              }}
-            >
-              {item.name}
-              <CloseOutlined
-                className="tabs-item-remove"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  removeTabItem(item);
+        <div className="tabs-menu-content">
+          {tabMenus.map((item) => {
+            if (home && item.path === home.path) {
+              return null;
+            }
+            return (
+              <div
+                key={item.name}
+                className={`tabs-item ${
+                  selectedKey === item.path ? 'tabs-item-active' : ''
+                }`}
+                onClick={() => {
+                  clickTabItem(item);
                 }}
-              />
-            </div>
-          );
-        })}
+              >
+                {item.name}
+                <CloseOutlined
+                  className="tabs-item-remove"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeTabItem(item);
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <Dropdown overlay={menu}>
+          <MenuOutlined style={{ padding: '0 15px' }} />
+        </Dropdown>
       </div>
     </div>
   );

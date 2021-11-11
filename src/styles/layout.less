@@ -55,7 +55,7 @@
 }
 
 //tab菜单布局
-.tab-menu-layout {
+.tabs-menu-layout {
   border-bottom: 1px solid #e1e1e1;
   box-shadow: 2px 2px 6px #dbdbdb;
   display: flex;
@@ -63,6 +63,21 @@
   justify-content: space-between;
   align-items: center;
   background: #f5f5f5;
+  .tabs-menu-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    flex: 1;
+  }
+  .tabs-menu-content {
+    display: flex;
+    height: 100%;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
   .tabs-home {
     display: flex;
     align-items: center;

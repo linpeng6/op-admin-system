@@ -14,11 +14,11 @@ import { recurseFlattenTree } from '@/utils/util';
 const { Header, Sider, Content, Footer } = Layout;
 
 const index: React.FC<any> = (props) => {
-  const { menuTree, tabMenus, selectedKey } = useSelector(
-    (state: RootState) => state.menu,
-  );
+  const { menu } = useSelector((state: RootState) => state);
+  const { tabMenus, selectedKey } = menu;
+
   const dispatch = useDispatch();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
 
   // console.log(props)
   useEffect(() => {
@@ -40,7 +40,7 @@ const index: React.FC<any> = (props) => {
     <Layout style={{ height: '100vh', minWidth: '1200px' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
-        <SideBlock menu={menuTree} />
+        <SideBlock menu={menu} dispatch={dispatch} />
       </Sider>
       <Layout className="site-layout">
         <Header className="header-layout">

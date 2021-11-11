@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface RootState {
   menu: MenuState;
 }
@@ -9,6 +11,7 @@ export interface MenuState {
   menuList: MenuOption[];
   tabMenus: MenuItem[];
   selectedKey: string;
+  openKeys: string[];
 }
 export interface MenuActionType {
   type: string;

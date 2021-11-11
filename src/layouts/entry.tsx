@@ -9,15 +9,13 @@ const entry: React.FC = (props: any) => {
   const { location, history } = props;
   const dispatch = useDispatch();
 
-  const { menuList, tabMenus, selectedKey } = useSelector(
-    (state: RootState) => state.menu,
-  );
   const listenRoute = (location: any) => {
     const { pathname, search } = location;
     let path = pathname === '/' ? '/' : `${pathname}${search}`;
     dispatch(changeRoute(path, dispatch));
   };
   useEffect(() => {
+    // listenRoute(location);
     // 监听路由的变化
     history.listen((location: any, action: any) => {
       // 路由变更

@@ -1,23 +1,48 @@
-import React from 'react';
+import React, { Key, Dispatch } from 'react';
 import { Menu } from 'antd';
 import { history } from 'umi';
-import { MenuOption } from '@/redux/interface';
+import { MenuState, MenuOption } from '@/redux/interface';
+import { changeOpenKeys } from '@/redux/action/menu';
+
 interface IMenu {
-  menu: MenuOption[];
+  menu: MenuState;
+  dispatch: Dispatch<any>;
 }
 
 const { SubMenu } = Menu;
 
 const index: React.FC<IMenu> = (props) => {
-  const { menu } = props;
+  const {
+    menu: { menuTree, openKeys, selectedKey },
+    dispatch,
+  } = props;
+  // const rootKeys = menuTree?.map(item=> item.path)
 
   const clickMenu = ({ key }: any) => {
     history.push(key);
   };
 
+  const onOpenChange = (keys: Key[]) => {
+    // const latestOpenKey = keys.find(key => openKeys.indexOf(key.toString()) === -1);
+    // if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+    //    dispatch(changeOpenKeys(keys))
+    // } else {
+    //   dispatch(changeOpenKeys(latestOpenKey ? [latestOpenKey] : []))
+    // }
+    dispatch(changeOpenKeys(keys));
+  };
   return (
-    <Menu theme="dark" mode="inline" onClick={clickMenu}>
-      {menu.map((item) => (item.children ? SubMenuItem(item) : MenuItem(item)))}
+    <Menu
+      theme="dark"
+      mode="inline"
+      onClick={clickMenu}
+      selectedKeys={[selectedKey]}
+      openKeys={openKeys}
+      onOpenChange={onOpenChange}
+    >
+      {menuTree.map((item) =>
+        item.children ? SubMenuItem(item) : MenuItem(item),
+      )}
     </Menu>
   );
 };

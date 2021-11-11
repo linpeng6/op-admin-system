@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MenuOption, MenuItem, RootState } from '@/redux/interface';
-import { changeSelectKey } from '@/redux/action/menu';
+import { changeSelectKey, changeTabMenus } from '@/redux/action/menu';
 import { history } from 'umi';
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloseOutlined } from '@ant-design/icons';
 
 const index: React.FC = () => {
   const { menuTree, tabMenus, selectedKey } = useSelector(
@@ -14,6 +14,22 @@ const index: React.FC = () => {
   const clickTabItem = (item: MenuItem | MenuOption) => {
     dispatch(changeSelectKey(item.path));
     history.push(item.path);
+  };
+
+  const removeTabItem = ({ path }: MenuItem) => {
+    //close current tab
+    if (path === selectedKey) {
+      const removeIndex = tabMenus.findIndex((item) => item.path === path);
+      if (removeIndex === 0) {
+        const nextItem = tabMenus[removeIndex + 1];
+        history.push(nextItem ? nextItem.path : home?.path);
+      } else {
+        const preItem = tabMenus[removeIndex - 1];
+        history.push(preItem.path);
+      }
+    }
+    const newTabMenus = tabMenus.filter((item) => item.path !== path);
+    dispatch(changeTabMenus(newTabMenus));
   };
   const home = useMemo(() => {
     return menuTree && menuTree[0];
@@ -48,6 +64,13 @@ const index: React.FC = () => {
               }}
             >
               {item.name}
+              <CloseOutlined
+                className="tabs-item-remove"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeTabItem(item);
+                }}
+              />
             </div>
           );
         })}

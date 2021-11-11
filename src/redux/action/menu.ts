@@ -1,16 +1,11 @@
+import React from 'react';
 import actionTypes from './actionTypes';
 import { MenuItem, MenuOption } from '../interface';
 import store from '../store';
 // change menuList
-export const changeMenuList = (
-  menuTree: MenuOption[],
-  menuFlattenList: any[],
-) => ({
+export const changeMenuList = (menuTree: MenuOption[], menuList: any[]) => ({
   type: actionTypes.UPDATE_MENU_LIST,
-  value: {
-    menuTree,
-    menuList: menuFlattenList,
-  },
+  value: { menuTree, menuList },
 });
 // change selectKey
 export const changeSelectKey = (value: string) => ({
@@ -48,3 +43,9 @@ export const changeRoute = (
     },
   };
 };
+
+// change open keys
+export const changeOpenKeys = (value: React.Key[]) => ({
+  type: actionTypes.CHANGE_OPEN_KEYS,
+  value,
+});

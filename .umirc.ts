@@ -14,5 +14,6 @@ export default defineConfig({
     '@': resolve(__dirname, './src'),
     '@comp': resolve(__dirname, './src/components'),
     '@img': resolve(__dirname, './src/assets/images'),
+    '@rdx': resolve(__dirname, './src/redux'),
   },
 });

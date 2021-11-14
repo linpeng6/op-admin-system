@@ -71,7 +71,7 @@ const index: React.FC<any> = (props) => {
 };
 
 const RouterComp = (props: any) => {
-  return <>{props.children}</>;
+  return <div className="main-content">{props.children}</div>;
 };
 
 export default memo(index);

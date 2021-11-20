@@ -38,10 +38,10 @@ const index: React.FC = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key="close-other">
         <div>关闭其它标签</div>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key="close-all">
         <div>关闭所有标签</div>
       </Menu.Item>
     </Menu>
@@ -89,8 +89,8 @@ const index: React.FC = () => {
             );
           })}
         </div>
-        <Dropdown overlay={menu}>
-          <MenuOutlined style={{ padding: '0 15px' }} />
+        <Dropdown overlay={menu} trigger={['click']}>
+          <MenuOutlined className="tabs-menu-icon-close" />
         </Dropdown>
       </div>
     </div>

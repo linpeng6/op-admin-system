@@ -40,7 +40,9 @@ const index: React.FC<any> = (props) => {
     <Layout style={{ height: '100vh', minWidth: '1200px' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
-        <SideBlock menu={menu} dispatch={dispatch} />
+        <div className="sider-layout">
+          <SideBlock menu={menu} dispatch={dispatch} />
+        </div>
       </Sider>
       <Layout className="site-layout">
         <Header className="header-layout">

@@ -62,32 +62,34 @@ const index: React.FC = () => {
             <HomeOutlined className="fs18" />
           </div>
         )}
-        <div className="tabs-menu-content">
-          {tabMenus.map((item) => {
-            if (home && item.path === home.path) {
-              return null;
-            }
-            return (
-              <div
-                key={item.name}
-                className={`tabs-item ${
-                  selectedKey === item.path ? 'tabs-item-active' : ''
-                }`}
-                onClick={() => {
-                  clickTabItem(item);
-                }}
-              >
-                {item.name}
-                <CloseOutlined
-                  className="tabs-item-remove"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeTabItem(item);
+        <div className="tabs-menu-wrapper">
+          <div className="tabs-menu-content">
+            {tabMenus.map((item) => {
+              if (home && item.path === home.path) {
+                return null;
+              }
+              return (
+                <div
+                  key={item.name}
+                  className={`tabs-item ${
+                    selectedKey === item.path ? 'tabs-item-active' : ''
+                  }`}
+                  onClick={() => {
+                    clickTabItem(item);
                   }}
-                />
-              </div>
-            );
-          })}
+                >
+                  {item.name}
+                  <CloseOutlined
+                    className="tabs-item-remove"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeTabItem(item);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         <Dropdown overlay={menu} trigger={['click']}>
           <MenuOutlined className="tabs-menu-icon-close" />

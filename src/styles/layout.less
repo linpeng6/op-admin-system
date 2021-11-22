@@ -93,8 +93,9 @@
   border-bottom: 1px solid #e1e1e1;
   box-shadow: 2px 2px 6px #dbdbdb;
   display: flex;
-  height: 50px;
-  justify-content: space-between;
+  flex: none;
+  position: relative;
+  height: 40px;
   align-items: center;
   background: #f5f5f5;
   .tabs-menu-container {
@@ -112,6 +113,7 @@
     flex: auto;
     align-self: stretch;
     white-space: nowrap;
+    position: relative;
     transform: translate(0);
   }
   .tabs-menu-content {
@@ -119,7 +121,7 @@
     height: 100%;
     flex: 1;
     position: relative;
-    overflow: hidden;
+    transition: transform 0.3s;
   }
   .tabs-home {
     display: flex;
@@ -164,6 +166,7 @@
     border-radius: 10px 10px 0 0;
   }
   .tabs-item-remove {
+    font-size: 10px;
     margin-left: 8px;
     transition: all 0.3s;
   }

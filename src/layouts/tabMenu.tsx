@@ -23,11 +23,19 @@ const index: React.FC = () => {
     handleTabVisibility();
   }, [selectedKey]);
 
+  /**
+   * 点击标签页
+   * @param item
+   */
   const clickTabItem = (item: MenuItem | MenuOption) => {
     dispatch(changeSelectKey(item.path));
     history.push(item.path);
   };
 
+  /**
+   * 删除标签项
+   * @param param MenuItem
+   */
   const removeTabItem = ({ path }: MenuItem) => {
     //close current tab
     if (path === selectedKey) {
@@ -48,35 +56,35 @@ const index: React.FC = () => {
     return menuTree && menuTree[0];
   }, [menuTree]);
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="close-other">
-        <div>关闭其它标签</div>
-      </Menu.Item>
-      <Menu.Item key="close-all">
-        <div>关闭所有标签</div>
-      </Menu.Item>
-    </Menu>
-  );
-
   /**
    * 处理tab滚动
    * @param e wheelEvent
    */
   const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
-    console.log(e);
     if (!tabsRef.current) return;
     const delta = e.deltaY || 0;
     let dist = 0;
-    // 鼠标滚轮向下滚动,deltaY > 0,tabs向左滑动
+    // 鼠标滚轮向下滚动,deltaY > 0,tabs向顶部(左端)滚动
     if (delta > 0) {
       dist = Math.min(0, leftDist + delta);
     } else {
-      // 鼠标滚轮向上滚动,deltaY < 0,tabs向右滑动
-      // 滚轮滑动到最左端
+      // 鼠标滚轮向上滚动,deltaY < 0,tabs向尾部(右端)滑动
+      const wrapperWidth = wrapperRef.current?.offsetWidth || 0;
+      const tabsWidth = tabsRef.current.offsetWidth;
+      // 外层容器宽度大于tabs滚动宽度,禁止滚动
+      if (wrapperWidth >= tabsWidth) {
+        dist = 0;
+      } else {
+        // 最大滑动距离(tabsWidth - wrapperWidth)
+        const minScroll = tabsWidth - wrapperWidth;
+        if (leftDist < -minScroll) {
+          // tabs滑到底端,不能继续滑倒
+          dist = leftDist;
+        } else {
+          dist = Math.max(leftDist + delta, -minScroll);
+        }
+      }
     }
-
-    // TODO
     setLeftDis(dist);
   };
 
@@ -108,6 +116,38 @@ const index: React.FC = () => {
     }
     setLeftDis(value);
   };
+
+  /**
+   *
+   * @param param
+   */
+  const handleSelectAction = ({ key }: { key: string }) => {
+    switch (key) {
+      case 'close-other':
+        const tab = tabMenus.filter(
+          (item) => item && item.path === selectedKey,
+        );
+        dispatch(changeTabMenus(tab));
+        break;
+      case 'close-all':
+        dispatch(changeTabMenus([]));
+        history.push('/');
+        break;
+      default:
+        break;
+    }
+  };
+  const menu = (
+    <Menu onClick={handleSelectAction}>
+      <Menu.Item key="close-other">
+        <div>关闭其它标签</div>
+      </Menu.Item>
+      <Menu.Item key="close-all">
+        <div>关闭所有标签</div>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className="tabs-menu-layout">
       <div className="tabs-menu-container">

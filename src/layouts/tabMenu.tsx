@@ -14,6 +14,7 @@ const index: React.FC = () => {
   );
   const dispatch = useDispatch();
   const tabsRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [leftDist, setLeftDis] = useState<number>(0);
 
   useEffect(() => {
@@ -67,17 +68,25 @@ const index: React.FC = () => {
     if (!tabsRef.current) return;
     const delta = e.deltaY || 0;
     let dist = 0;
-    // 鼠标滚轮向上滚动,deltaY < 0
+    // 鼠标滚轮向下滚动,deltaY > 0,tabs向左滑动
     if (delta > 0) {
       dist = Math.min(0, leftDist + delta);
+    } else {
+      // 鼠标滚轮向上滚动,deltaY < 0,tabs向右滑动
+      // 滚轮滑动到最左端
     }
+
     // TODO
     setLeftDis(dist);
   };
 
   const handleTabVisibility = () => {
     if (!tabsRef.current) return;
+    // 标签项DOM数组
     const tabs = Array.from(tabsRef.current.children) || [];
+    // 标签容器宽度
+    const wrapperWidth = wrapperRef.current?.offsetWidth || 0;
+    // 当前选中标签项
     const activeTab = tabs.find(
       (item) => item && item.className.includes(activeClassName),
     ) as HTMLElement | undefined;
@@ -86,9 +95,17 @@ const index: React.FC = () => {
     const { offsetLeft, offsetWidth } = activeTab;
     if (offsetLeft < -leftDist) {
       // 当前选择tab的offsetLeft小于偏移距离(即tab在可视区域左侧)
-      value = -offsetLeft + 10;
+      value = -offsetLeft;
+    } else if (
+      offsetLeft >= -leftDist &&
+      offsetLeft + offsetWidth < -leftDist + wrapperWidth
+    ) {
+      // 当前选择tab在可视区域中
+      value = Math.min(0, wrapperWidth - offsetLeft - offsetWidth);
+    } else {
+      // 当前选择tab在可视区域右侧
+      value = -(offsetLeft + offsetWidth - wrapperWidth);
     }
-    // TODO
     setLeftDis(value);
   };
   return (
@@ -106,7 +123,11 @@ const index: React.FC = () => {
             <HomeOutlined className="fs18" />
           </div>
         )}
-        <div className="tabs-menu-wrapper" onWheel={handleScroll}>
+        <div
+          className="tabs-menu-wrapper"
+          onWheel={handleScroll}
+          ref={wrapperRef}
+        >
           <div
             className="tabs-menu-content"
             style={{ transform: `translate(${leftDist}px,0)` }}

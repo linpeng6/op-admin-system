@@ -21,7 +21,7 @@ const index: React.FC = () => {
     const index = tabMenus.findIndex((item) => item.path === selectedKey);
     if (index === -1) return;
     handleTabVisibility();
-  }, [selectedKey]);
+  }, [selectedKey, tabMenus]);
 
   /**
    * 点击标签页
@@ -78,7 +78,7 @@ const index: React.FC = () => {
         // 最大滑动距离(tabsWidth - wrapperWidth)
         const minScroll = tabsWidth - wrapperWidth;
         if (leftDist < -minScroll) {
-          // tabs滑到底端,不能继续滑倒
+          // tabs滑到底端,不能继续滑动
           dist = leftDist;
         } else {
           dist = Math.max(leftDist + delta, -minScroll);

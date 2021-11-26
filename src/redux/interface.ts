@@ -21,7 +21,7 @@ export interface MenuActionType {
 export interface MenuOption {
   path: string;
   name: string;
-  icon?: string;
+  icon?: any;
   key?: string;
   children?: MenuOption[];
 }

@@ -1,9 +1,10 @@
-import React, { Key, Dispatch } from 'react';
+import React, { Key, Dispatch, FC } from 'react';
 import { Menu } from 'antd';
 import { history } from 'umi';
 import { MenuState, MenuOption } from '@/redux/interface';
 import { changeOpenKeys } from '@/redux/action/menu';
-
+import { MenuDataItem } from '@ant-design/pro-layout';
+import * as Icon from '@ant-design/icons';
 interface IMenu {
   menu: MenuState;
   dispatch: Dispatch<any>;
@@ -47,10 +48,22 @@ const index: React.FC<IMenu> = (props) => {
   );
 };
 
+/**
+ * 菜单图标
+ * @param iconName 图标名
+ * @returns
+ */
+const MenuIcon = (iconName?: keyof typeof Icon) => {
+  if (!iconName) return null;
+  return React.createElement(Icon[iconName] as any, {
+    className: 'menu-icon',
+  });
+};
+
 const MenuItem = (item: MenuOption) => {
   return (
     <Menu.Item key={item.path}>
-      <span className="menu-icon"></span>
+      {MenuIcon(item.icon)}
       <span className="menu-name">{item.name}</span>
     </Menu.Item>
   );
@@ -62,7 +75,7 @@ const SubMenuItem = (item: MenuOption) => {
       key={item.path}
       title={
         <>
-          <span className="menu-icon"></span>
+          {MenuIcon(item.icon)}
           <span className="menu-name">{item.name}</span>
         </>
       }

@@ -3,6 +3,7 @@ import { Table, Input, Button } from 'antd';
 import Container from '@comp/layout/container';
 import { FileExcelOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
+import XLSX, { WorkSheet } from 'xlsx';
 import './index.less';
 
 const defaultFileName = 'op-excel';
@@ -55,6 +56,7 @@ const index: React.FC<{}> = () => {
       date: dayjs().format('YYYY-MM-DD'),
     },
   ];
+
   /**
    * input onchange
    * @param e
@@ -64,7 +66,26 @@ const index: React.FC<{}> = () => {
     setInputValue(value);
   };
 
-  const handleExportExcel = () => {};
+  /**
+   * 导出excel
+   */
+  const handleExportExcel = () => {
+    const sheets: Array<{ sheet: WorkSheet; sheetName: string }> = [];
+    const workbook = XLSX.utils.book_new();
+    const data = dataSource.map((item) => {
+      const { key, ...rest } = item;
+      return rest;
+    });
+    sheets.push({
+      sheetName: 'sheet1',
+      sheet: XLSX.utils.json_to_sheet(data),
+    });
+    sheets.forEach((item) => {
+      XLSX.utils.book_append_sheet(workbook, item.sheet, item.sheetName);
+    });
+    const filename = inputValue ? inputValue.trim() : defaultFileName;
+    XLSX.writeFile(workbook, `${filename}.xlsx`);
+  };
   return (
     <Container>
       <div className="excel-export-excel">

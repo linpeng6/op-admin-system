@@ -20,7 +20,6 @@ const index: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
-  // console.log(props)
   useEffect(() => {
     getMenuList();
   }, []);

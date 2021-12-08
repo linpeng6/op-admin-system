@@ -1,6 +1,6 @@
 export default {
   '/api/menu': {
-    code: 200,
+    code: 1,
     data: [
       { path: '/', name: '首页', icon: 'HomeOutlined', key: 'home' },
       {
@@ -20,6 +20,20 @@ export default {
             name: '日期',
             icon: 'CalendarOutlined',
             key: 'date',
+          },
+        ],
+      },
+      {
+        path: '/drag',
+        name: '拖拽',
+        icon: 'DragOutlined',
+        key: 'drag',
+        children: [
+          {
+            path: '/drag/html-draggable',
+            name: 'Draggable属性',
+            icon: '',
+            key: 'html-draggable',
           },
         ],
       },

@@ -9,13 +9,18 @@ const entry: React.FC = (props: any) => {
   const { location, history } = props;
   const dispatch = useDispatch();
 
+  /**
+   * 路由监听
+   * @param location
+   */
   const listenRoute = (location: any) => {
     const { pathname, search } = location;
     let path = pathname === '/' ? '/' : `${pathname}${search}`;
     dispatch(changeRoute(path, dispatch));
   };
+
   useEffect(() => {
-    // listenRoute(location);
+    listenRoute(location);
     // 监听路由的变化
     history.listen((location: any, action: any) => {
       // 路由变更

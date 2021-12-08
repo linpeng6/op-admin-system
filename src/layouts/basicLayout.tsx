@@ -7,8 +7,8 @@ import SideBlock from './side';
 import TabMenuBlock from './tabMenu';
 import ErrorBoundary from '@comp/errorBoundary';
 import { getMenuListApi } from '@/services/index';
-import { RootState } from '@/redux/interface';
-import { changeMenuList } from '@/redux/action/menu';
+import { RootState, MenuOption } from '@/redux/interface';
+import { changeMenuList, changeRoute } from '@/redux/action/menu';
 import { recurseFlattenTree } from '@/utils/util';
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -25,11 +25,20 @@ const index: React.FC<any> = (props) => {
   }, []);
 
   const getMenuList = async (): Promise<void> => {
-    let res = await getMenuListApi();
-    const menuTree = [...res.data];
-    const menuFlattenList: any[] = [];
-    recurseFlattenTree(menuTree, menuFlattenList);
-    dispatch(changeMenuList(menuTree, menuFlattenList));
+    const res: any = await getMenuListApi();
+    if (res.code === 1) {
+      const menuTree: MenuOption[] = [...res.data];
+      const menuFlattenList: MenuOption[] = [];
+      recurseFlattenTree(menuTree, menuFlattenList);
+      dispatch(changeMenuList(menuTree, menuFlattenList));
+      const selectedKey = sessionStorage.getItem('selectedKey');
+      if (!selectedKey) {
+        return;
+      }
+      dispatch(changeRoute(selectedKey, dispatch));
+    } else {
+      dispatch(changeMenuList([], []));
+    }
   };
 
   const toggle = (): void => {

@@ -3,21 +3,31 @@ import actionTypes from './actionTypes';
 import { MenuItem, MenuOption } from '../interface';
 import store from '../store';
 // change menuList
-export const changeMenuList = (menuTree: MenuOption[], menuList: any[]) => ({
+export const changeMenuList = (
+  menuTree: MenuOption[],
+  menuList: MenuOption[],
+) => ({
   type: actionTypes.UPDATE_MENU_LIST,
   value: { menuTree, menuList },
 });
 // change selectKey
-export const changeSelectKey = (value: string) => ({
-  type: actionTypes.UPDATE_SELECT_KEY,
-  value,
-});
+export const changeSelectKey = (value: string) => {
+  sessionStorage.setItem('selectedKey', value);
+  return {
+    type: actionTypes.UPDATE_SELECT_KEY,
+    value,
+  };
+};
 
-// change tabMenu
-export const changeTabMenus = (value: MenuItem[]) => ({
-  type: actionTypes.UPDATE_TAB_MENU,
-  value,
-});
+// change tabMenus
+export const changeTabMenus = (value: MenuItem[]) => {
+  // cache tabMenus when refresh browser
+  sessionStorage.setItem('tabMenus', JSON.stringify(value));
+  return {
+    type: actionTypes.UPDATE_TAB_MENU,
+    value,
+  };
+};
 
 // change Route
 export const changeRoute = (
@@ -36,6 +46,7 @@ export const changeRoute = (
     }
     dispatch(changeTabMenus([...tabMenus]));
   }
+  sessionStorage.setItem('selectedKey', pathname);
   return {
     type: actionTypes.UPDATE_ROUTE,
     value: {

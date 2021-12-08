@@ -3,8 +3,10 @@ import { MenuState, MenuActionType } from '../interface';
 const initState: MenuState = {
   menuTree: [], // 菜单树
   menuList: [], // 菜单平铺结构
-  tabMenus: [], // 标签页列表
-  selectedKey: '/',
+  tabMenus: sessionStorage.getItem('tabMenus')
+    ? JSON.parse(sessionStorage.getItem('tabMenus')!)
+    : [], // 标签页列表
+  selectedKey: sessionStorage.getItem('selectedKey') || '/',
   openKeys: [], // 当前展开的 SubMenu 菜单项 key 数组
 };
 

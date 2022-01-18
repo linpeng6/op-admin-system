@@ -10,6 +10,7 @@ import { getMenuListApi } from '@/services/index';
 import { RootState, MenuOption } from '@/redux/interface';
 import { changeMenuList, changeRoute } from '@/redux/action/menu';
 import { recurseFlattenTree } from '@/utils/util';
+import Container from '@comp/layout/container';
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -83,7 +84,11 @@ const index: React.FC<any> = (props) => {
 };
 
 const RouterComp = (props: any) => {
-  return <div className="main-content">{props.children}</div>;
+  return (
+    <div className="main-content">
+      <Container>{props.children}</Container>
+    </div>
+  );
 };
 
 export default memo(index);

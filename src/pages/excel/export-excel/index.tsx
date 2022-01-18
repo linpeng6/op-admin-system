@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Table, Input, Button } from 'antd';
-import Container from '@comp/layout/container';
 import { FileExcelOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import XLSX, { WorkSheet } from 'xlsx';
@@ -87,26 +86,24 @@ const index: React.FC<{}> = () => {
     XLSX.writeFile(workbook, `${filename}.xlsx`);
   };
   return (
-    <Container>
-      <div className="excel-export-excel">
-        <section style={{ marginBottom: 20 }}>
-          <label className="excel-export-excel-fileName">Filename:</label>
-          <Input
-            style={{ width: '350px' }}
-            value={inputValue}
-            prefix={<FileExcelOutlined style={{ color: '#c0c4cc' }} />}
-            placeholder="请输入文件名(默认op-excel)"
-            onChange={handleChangeInput}
-          />
-          <Button type="primary" onClick={handleExportExcel}>
-            导出Excel
-          </Button>
-        </section>
-        <section>
-          <Table columns={columns} dataSource={dataSource} />
-        </section>
-      </div>
-    </Container>
+    <div className="excel-export-excel">
+      <section style={{ marginBottom: 20 }}>
+        <label className="excel-export-excel-fileName">Filename:</label>
+        <Input
+          style={{ width: '350px' }}
+          value={inputValue}
+          prefix={<FileExcelOutlined style={{ color: '#c0c4cc' }} />}
+          placeholder="请输入文件名(默认op-excel)"
+          onChange={handleChangeInput}
+        />
+        <Button type="primary" onClick={handleExportExcel}>
+          导出Excel
+        </Button>
+      </section>
+      <section>
+        <Table columns={columns} dataSource={dataSource} />
+      </section>
+    </div>
   );
 };
 

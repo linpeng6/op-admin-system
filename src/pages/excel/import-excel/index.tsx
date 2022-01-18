@@ -1,6 +1,5 @@
 import React from 'react';
 import { Upload, Table, Button } from 'antd';
-import Container from '@comp/layout/container';
 import { ColumnsType } from 'antd/es/table';
 import { UploadOutlined } from '@ant-design/icons';
 import XLSX from 'xlsx';
@@ -75,22 +74,20 @@ const index = () => {
     maxCount: 1,
   };
   return (
-    <Container>
-      <div className="excel-import-excel">
-        <section style={{ marginBottom: 20 }}>
-          <Upload {...props}>
-            <Button icon={<UploadOutlined />}>Import Excel</Button>
-          </Upload>
-          <p className="excel-import-excel-issue">
-            The current table header is fixed, how to set the dynamic table
-            header, pls pull issue to tell me, thanks!
-          </p>
-        </section>
-        <section>
-          <Table rowKey="key" columns={columns} dataSource={dataSource} />
-        </section>
-      </div>
-    </Container>
+    <div className="excel-import-excel">
+      <section style={{ marginBottom: 20 }}>
+        <Upload {...props}>
+          <Button icon={<UploadOutlined />}>Import Excel</Button>
+        </Upload>
+        <p className="excel-import-excel-issue">
+          The current table header is fixed, how to set the dynamic table
+          header, pls pull issue to tell me, thanks!
+        </p>
+      </section>
+      <section>
+        <Table rowKey="key" columns={columns} dataSource={dataSource} />
+      </section>
+    </div>
   );
 };
 

@@ -35,6 +35,12 @@ export default {
             icon: '',
             key: 'html-draggable',
           },
+          {
+            path: '/drag/react-dnd',
+            name: 'react-dnd',
+            icon: '',
+            key: 'react-dnd',
+          },
         ],
       },
       {

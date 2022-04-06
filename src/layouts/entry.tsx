@@ -1,10 +1,9 @@
 import React, { useMemo, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'umi';
 import { routeWhiteList } from '../../config/globalConfig';
 import BasicLayout from './basicLayout';
 import { changeRoute } from '@/redux/action/menu';
-import { RootState } from '@/redux/interface';
 const entry: React.FC = (props: any) => {
   const { location, history } = props;
   const dispatch = useDispatch();

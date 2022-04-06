@@ -3,7 +3,6 @@ import { Menu } from 'antd';
 import { history } from 'umi';
 import { MenuState, MenuOption } from '@/redux/interface';
 import { changeOpenKeys } from '@/redux/action/menu';
-import { MenuDataItem } from '@ant-design/pro-layout';
 import * as Icon from '@ant-design/icons';
 interface IMenu {
   menu: MenuState;

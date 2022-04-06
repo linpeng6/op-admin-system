@@ -41,6 +41,12 @@ export default {
             icon: '',
             key: 'react-dnd',
           },
+          {
+            path: '/drag/trello',
+            name: 'trello',
+            icon: '',
+            key: 'trello',
+          },
         ],
       },
       {

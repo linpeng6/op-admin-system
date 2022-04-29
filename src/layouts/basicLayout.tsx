@@ -75,9 +75,6 @@ const index: React.FC<any> = (props) => {
             })}
           </ErrorBoundary>
         </Content>
-        <Footer style={{ textAlign: 'center', padding: '12px 50px' }}>
-          ©2021 Created by ripper
-        </Footer>
       </Layout>
     </Layout>
   );

@@ -70,6 +70,15 @@ export default {
         ],
       },
       {
+        path: '/css',
+        name: 'CSS',
+        icon: 'StarOutlined',
+        key: 'css',
+        children: [
+          { path: '/css/typing', name: '打字效果', icon: '', key: 'typing' },
+        ],
+      },
+      {
         path: '/system',
         name: '系统管理',
         icon: 'SettingOutlined',

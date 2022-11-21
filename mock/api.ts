@@ -70,6 +70,12 @@ export default {
         ],
       },
       {
+        path: '/pdf',
+        name: 'Pdf',
+        icon: 'FilePdfOutlined',
+        key: 'pdf',
+      },
+      {
         path: '/css',
         name: 'CSS',
         icon: 'StarOutlined',

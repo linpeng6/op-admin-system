@@ -28,7 +28,8 @@ const index: React.FC<any> = (props) => {
   const getMenuList = async (): Promise<void> => {
     const res: any = await getMenuListApi();
     if (res.code === 1) {
-      const menuTree: MenuOption[] = [...res.data];
+      const { data = [] } = res;
+      const menuTree: MenuOption[] = [...data];
       const menuFlattenList: MenuOption[] = [];
       recurseFlattenTree(menuTree, menuFlattenList);
       dispatch(changeMenuList(menuTree, menuFlattenList));

@@ -4,14 +4,14 @@ import { history } from 'umi';
 import { MenuState, MenuOption } from '@/redux/interface';
 import { changeOpenKeys } from '@/redux/action/menu';
 import * as Icon from '@ant-design/icons';
-interface IMenu {
+interface MenuProps {
   menu: MenuState;
   dispatch: Dispatch<any>;
 }
 
 const { SubMenu } = Menu;
 
-const index: React.FC<IMenu> = (props) => {
+const index: FC<MenuProps> = (props) => {
   const {
     menu: { menuTree, openKeys, selectedKey },
     dispatch,

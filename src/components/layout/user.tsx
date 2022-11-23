@@ -1,11 +1,12 @@
 import React from 'react';
 import { Avatar } from 'antd';
+import Clown from '@/assets/imgs/clown.png';
 
 const index: React.FC = (props: any) => {
   return (
     <div className="user">
-      <Avatar />
-      <span className="username">{'riper'}</span>
+      <Avatar src={Clown} />
+      <span className="username">admin</span>
     </div>
   );
 };

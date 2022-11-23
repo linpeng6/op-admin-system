@@ -12,7 +12,7 @@ import { changeMenuList, changeRoute } from '@/redux/action/menu';
 import { recurseFlattenTree } from '@/utils/util';
 import Container from '@comp/layout/container';
 
-const { Header, Sider, Content, Footer } = Layout;
+const { Header, Sider, Content } = Layout;
 
 const index: React.FC<any> = (props) => {
   const { menu } = useSelector((state: RootState) => state);
@@ -26,10 +26,10 @@ const index: React.FC<any> = (props) => {
   }, []);
 
   const getMenuList = async (): Promise<void> => {
-    const res: any = await getMenuListApi();
+    const res = await getMenuListApi();
     if (res.code === 1) {
       const { data = [] } = res;
-      const menuTree: MenuOption[] = [...data];
+      const menuTree = [...data];
       const menuFlattenList: MenuOption[] = [];
       recurseFlattenTree(menuTree, menuFlattenList);
       dispatch(changeMenuList(menuTree, menuFlattenList));
@@ -49,7 +49,7 @@ const index: React.FC<any> = (props) => {
   return (
     <Layout style={{ height: '100vh', minWidth: '1200px' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="logo">{collapsed ? 'OP' : 'Op-Admin-System'}</div>
         <div className="sider-layout">
           <SideBlock menu={menu} dispatch={dispatch} />
         </div>

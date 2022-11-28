@@ -5,7 +5,7 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import HeaderBlock from './header';
 import SideBlock from './side';
 import TabMenuBlock from './tabMenu';
-import ErrorBoundary from '@comp/errorBoundary';
+import ErrorBoundary from '@/components/error-boundary';
 import { getMenuListApi } from '@/services/index';
 import { RootState, MenuOption } from '@/redux/interface';
 import { changeMenuList, changeRoute } from '@/redux/action/menu';

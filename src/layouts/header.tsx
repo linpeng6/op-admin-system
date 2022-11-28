@@ -1,5 +1,5 @@
 import React from 'react';
-import User from '@comp/layout/user';
+import User from '@/components/layout/User';
 
 const index: React.FC = () => {
   return (

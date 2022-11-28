@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar } from 'antd';
 import Clown from '@/assets/imgs/clown.png';
 
-const index: React.FC = (props: any) => {
+const User: React.FC = (props: any) => {
   return (
     <div className="user">
       <Avatar src={Clown} />
@@ -11,4 +11,4 @@ const index: React.FC = (props: any) => {
   );
 };
 
-export default index;
+export default User;

@@ -10,7 +10,7 @@ import { getMenuListApi } from '@/services/index';
 import { RootState, MenuOption } from '@/redux/interface';
 import { changeMenuList, changeRoute } from '@/redux/action/menu';
 import { recurseFlattenTree } from '@/utils/util';
-import Container from '@comp/layout/container';
+import Container from '@/components/layout/Container';
 
 const { Header, Sider, Content } = Layout;
 

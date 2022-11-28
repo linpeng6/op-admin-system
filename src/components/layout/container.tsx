@@ -1,7 +1,7 @@
 import React from 'react';
 
-const index: React.FC = (props: any) => {
+const Container: React.FC = (props: any) => {
   return <div className="container">{props.children}</div>;
 };
 
-export default index;
+export default Container;
